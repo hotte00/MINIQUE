@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MINIQUE - Second-Hand Baby Clothes Marketplace</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-baby-carriage"></i>
+                <span>MINIQUE</span>
+            </div>
+            <div class="nav-search">
+                <input type="text" id="searchInput" placeholder="Search for baby clothes...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#" onclick="showPage('home')"><i class="fas fa-home"></i> Home</a>
+                <a href="#" onclick="showPage('products')"><i class="fas fa-shopping-bag"></i> Shop</a>
+                <a href="#" id="cartLink"><i class="fas fa-shopping-cart"></i> Cart <span id="cartBadge" class="badge">0</span></a>
+                <a href="#" id="messagesLink"><i class="fas fa-envelope"></i> Messages <span id="messagesBadge" class="badge">0</span></a>
+                <a href="#" id="authLink" onclick="showPage('login')"><i class="fas fa-user"></i> Login</a>
+                <a href="#" id="profileLink" style="display: none;"><i class="fas fa-user-circle"></i> <span id="userName"></span></a>
+                <button id="logoutBtn" class="btn-logout" style="display: none;">Logout</button>
+            </div>
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <section class="hero">
+                <div class="container">
+                    <h1>Welcome to MINIQUE</h1>
+                    <p>Your trusted marketplace for quality second-hand baby clothes</p>
+                    <div class="hero-buttons">
+                        <button onclick="showPage('products')" class="btn btn-primary">Start Shopping</button>
+                        <button onclick="showPage('sell')" class="btn btn-outline">Sell Your Items</button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features">
+                <div class="container">
+                    <h2>Why Choose MINIQUE?</h2>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <i class="fas fa-shield-alt"></i>
+                            <h3>Safe & Secure</h3>
+                            <p>All transactions are protected and verified</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-leaf"></i>
+                            <h3>Eco-Friendly</h3>
+                            <p>Reduce waste by buying second-hand</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-wallet"></i>
+                            <h3>Save Money</h3>
+                            <p>Quality clothes at affordable prices</p>
+                        </div>
+                        <div class="feature-card">
+                            <i class="fas fa-heart"></i>
+                            <h3>Community</h3>
+                            <p>Connect with parents like you</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="categories">
+                <div class="container">
+                    <h2>Shop by Category</h2>
+                    <div class="category-grid">
+                        <div class="category-card" onclick="filterProducts('category', 'bodysuits')">
+                            <i class="fas fa-tshirt"></i>
+                            <h3>Bodysuits</h3>
+                        </div>
+                        <div class="category-card" onclick="filterProducts('category', 'outerwear')">
+                            <i class="fas fa-mitten"></i>
+                            <h3>Outerwear</h3>
+                        </div>
+                        <div class="category-card" onclick="filterProducts('category', 'pants')">
+                            <i class="fas fa-socks"></i>
+                            <h3>Pants & Bottoms</h3>
+                        </div>
+                        <div class="category-card" onclick="filterProducts('category', 'dresses')">
+                            <i class="fas fa-user-tie"></i>
+                            <h3>Dresses</h3>
+                        </div>
+                        <div class="category-card" onclick="filterProducts('category', 'sleepwear')">
+                            <i class="fas fa-moon"></i>
+                            <h3>Sleepwear</h3>
+                        </div>
+                        <div class="category-card" onclick="filterProducts('category', 'accessories')">
+                            <i class="fas fa-hat-cowboy"></i>
+                            <h3>Accessories</h3>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Products Page -->
+        <div id="productsPage" class="page">
+            <div class="container">
+                <div class="products-header">
+                    <h2>Browse Items</h2>
+                    <button onclick="showPage('sell')" class="btn btn-primary" id="sellBtn" style="display: none;">
+                        <i class="fas fa-plus"></i> List an Item
+                    </button>
+                </div>
+
+                <div class="filters">
+                    <div class="filter-group">
+                        <select id="categoryFilter" onchange="applyFilters()">
+                            <option value="">All Categories</option>
+                            <option value="bodysuits">Bodysuits</option>
+                            <option value="outerwear">Outerwear</option>
+                            <option value="pants">Pants & Bottoms</option>
+                            <option value="dresses">Dresses</option>
+                            <option value="sleepwear">Sleepwear</option>
+                            <option value="accessories">Accessories</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="sizeFilter" onchange="applyFilters()">
+                            <option value="">All Sizes</option>
+                            <option value="newborn">Newborn</option>
+                            <option value="0-3m">0-3 months</option>
+                            <option value="3-6m">3-6 months</option>
+                            <option value="6-9m">6-9 months</option>
+                            <option value="9-12m">9-12 months</option>
+                            <option value="12-18m">12-18 months</option>
+                            <option value="18-24m">18-24 months</option>
+                            <option value="2t">2T</option>
+                            <option value="3t">3T</option>
+                            <option value="4t">4T</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="genderFilter" onchange="applyFilters()">
+                            <option value="">All Genders</option>
+                            <option value="boy">Boy</option>
+                            <option value="girl">Girl</option>
+                            <option value="unisex">Unisex</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="conditionFilter" onchange="applyFilters()">
+                            <option value="">All Conditions</option>
+                            <option value="like-new">Like New</option>
+                            <option value="excellent">Excellent</option>
+                            <option value="good">Good</option>
+                            <option value="fair">Fair</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select id="sortFilter" onchange="applyFilters()">
+                            <option value="newest">Newest First</option>
+                            <option value="price-asc">Price: Low to High</option>
+                            <option value="price-desc">Price: High to Low</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="productsGrid" class="products-grid">
+                    <div class="loading">Loading products...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Detail Page -->
+        <div id="productDetailPage" class="page">
+            <div class="container">
+                <button onclick="showPage('products')" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Back to Products
+                </button>
+                <div id="productDetail"></div>
+            </div>
+        </div>
+
+        <!-- Sell Page -->
+        <div id="sellPage" class="page">
+            <div class="container">
+                <h2>List Your Item</h2>
+                <form id="sellForm" class="form">
+                    <div class="form-group">
+                        <label for="productTitle">Title *</label>
+                        <input type="text" id="productTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Description *</label>
+                        <textarea id="productDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productPrice">Price ($) *</label>
+                            <input type="number" id="productPrice" step="0.01" min="0" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCategory">Category *</label>
+                            <select id="productCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="bodysuits">Bodysuits</option>
+                                <option value="outerwear">Outerwear</option>
+                                <option value="pants">Pants & Bottoms</option>
+                                <option value="dresses">Dresses</option>
+                                <option value="sleepwear">Sleepwear</option>
+                                <option value="accessories">Accessories</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productSize">Size *</label>
+                            <select id="productSize" required>
+                                <option value="">Select Size</option>
+                                <option value="newborn">Newborn</option>
+                                <option value="0-3m">0-3 months</option>
+                                <option value="3-6m">3-6 months</option>
+                                <option value="6-9m">6-9 months</option>
+                                <option value="9-12m">9-12 months</option>
+                                <option value="12-18m">12-18 months</option>
+                                <option value="18-24m">18-24 months</option>
+                                <option value="2t">2T</option>
+                                <option value="3t">3T</option>
+                                <option value="4t">4T</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productGender">Gender *</label>
+                            <select id="productGender" required>
+                                <option value="">Select Gender</option>
+                                <option value="boy">Boy</option>
+                                <option value="girl">Girl</option>
+                                <option value="unisex">Unisex</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="productCondition">Condition *</label>
+                            <select id="productCondition" required>
+                                <option value="">Select Condition</option>
+                                <option value="like-new">Like New</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImages">Images (up to 5)</label>
+                        <input type="file" id="productImages" multiple accept="image/*">
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">List Item</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Cart Page -->
+        <div id="cartPage" class="page">
+            <div class="container">
+                <h2>Shopping Cart</h2>
+                <div id="cartContent"></div>
+            </div>
+        </div>
+
+        <!-- Messages Page -->
+        <div id="messagesPage" class="page">
+            <div class="container">
+                <h2>Messages</h2>
+                <div class="messages-container">
+                    <div class="conversations-list" id="conversationsList"></div>
+                    <div class="message-thread" id="messageThread"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profilePage" class="page">
+            <div class="container">
+                <h2>My Profile</h2>
+                <div id="profileContent"></div>
+            </div>
+        </div>
+
+        <!-- Login Page -->
+        <div id="loginPage" class="page">
+            <div class="container">
+                <div class="auth-container">
+                    <h2>Login</h2>
+                    <form id="loginForm" class="form">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <p class="auth-switch">
+                        Don't have an account? <a href="#" onclick="showPage('register')">Register here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="registerPage" class="page">
+            <div class="container">
+                <div class="auth-container">
+                    <h2>Register</h2>
+                    <form id="registerForm" class="form">
+                        <div class="form-group">
+                            <label for="registerName">Full Name</label>
+                            <input type="text" id="registerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password (min 6 characters)</label>
+                            <input type="password" id="registerPassword" minlength="6" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </form>
+                    <p class="auth-switch">
+                        Already have an account? <a href="#" onclick="showPage('login')">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 MINIQUE - Second-Hand Baby Clothes Platform</p>
+            <p>Made with <i class="fas fa-heart"></i> by Hojune Kim & Minseob Lee</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
